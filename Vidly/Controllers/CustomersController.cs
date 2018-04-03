@@ -56,10 +56,21 @@ namespace Vidly.Controllers
 
         //Automatically map request data to this obj CustomerFormViewModel - Model binding example
         [HttpPost]
-        public ActionResult Create(Customer customer)
+        public ActionResult Save(Customer customer)
         {
-            //adds record as added modified or deleted, cache obj
-            _context.Customers.Add(customer);
+            if (customer.Id == 0)
+                _context.Customers.Add(customer);
+            else
+            {
+                var customerInDB = _context.Customers.Single(c => c.Id == customer.Id);
+
+                customerInDB.Name = customer.Name;
+                customerInDB.BirthDate = customer.BirthDate;
+                customerInDB.MembershipTypeID = customer.MembershipTypeID;
+                customerInDB.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            }
+          
+
             //either all changes are persisted or none.
             _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
