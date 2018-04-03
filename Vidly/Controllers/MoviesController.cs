@@ -50,7 +50,7 @@ namespace Vidly.Controllers
         }
 
 
-        //called when navigating to movies
+        //called when navigating to moviess
         public ViewResult Index()
         {
          
