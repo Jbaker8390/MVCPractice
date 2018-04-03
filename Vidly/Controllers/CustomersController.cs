@@ -53,6 +53,17 @@ namespace Vidly.Controllers
            
             return View(viewModel);
         }
+
+        //Automatically map request data to this obj NewCustomerViewModel - Model binding example
+        [HttpPost]
+        public ActionResult Create(Customer customer)
+        {
+            //adds record as added modified or deleted, cache obj
+            _context.Customers.Add(customer);
+            //either all changes are persisted or none.
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Customers");
+        }
         //private IEnumerable<Customer> GetCustomers()
         //{
         //    return new List<Customer>
