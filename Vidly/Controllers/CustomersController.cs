@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using System.Data.Entity;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -25,7 +26,7 @@ namespace Vidly.Controllers
         // GET: Customers
         public ViewResult Index()
         {
-            //gets all customers in DB, will not query the DB
+            
             var customer = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customer);
@@ -44,7 +45,13 @@ namespace Vidly.Controllers
 
         public ActionResult New()
         {
-            return View();
+            //create a viewmodel to get both customer and membership types
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = _context.MemberShipTypes
+            };
+           
+            return View(viewModel);
         }
         //private IEnumerable<Customer> GetCustomers()
         //{
