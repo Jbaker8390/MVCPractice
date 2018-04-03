@@ -46,15 +46,15 @@ namespace Vidly.Controllers
         public ActionResult New()
         {
             //create a viewmodel to get both customer and membership types
-            var viewModel = new NewCustomerViewModel
+            var viewModel = new CustomerFormViewModel
             {
                 MembershipTypes = _context.MemberShipTypes
             };
            
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
 
-        //Automatically map request data to this obj NewCustomerViewModel - Model binding example
+        //Automatically map request data to this obj CustomerFormViewModel - Model binding example
         [HttpPost]
         public ActionResult Create(Customer customer)
         {
@@ -64,13 +64,23 @@ namespace Vidly.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
-        //private IEnumerable<Customer> GetCustomers()
-        //{
-        //    return new List<Customer>
-        //    {
-        //        new Customer {Id = 1, Name = "John Smith"},
-        //        new Customer {Id = 2, Name = "Mary Williams"}
-        //    };
-        //}
+
+
+
+        public ActionResult Edit(int id)
+        {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+                return HttpNotFound();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypes = _context.MemberShipTypes.ToList()
+            };
+            //need specify viewname for returning New because it'll error trying to return Edit
+            return View("CustomerForm", viewModel);
+        }
     }
 }
