@@ -57,6 +57,7 @@ namespace Vidly.Controllers
 
         //Automatically map request data to this obj CustomerFormViewModel - Model binding example
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             if (!ModelState.IsValid)
