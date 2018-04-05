@@ -19,13 +19,13 @@ namespace Vidly.Models
 
         public Genre Genre { get; set; }
 
-         public byte GenreId { get; set; }
+        public byte GenreId { get; set; }
 
-         public DateTime DateAdded { get; set; }
+        public DateTime DateAdded { get; set; }
 
-         public DateTime ReleasedDate  { get; set; }
+        public DateTime ReleasedDate { get; set; }
 
-         public byte NumberInStock { get; set; }
+        public byte NumberInStock { get; set; }
 
 
 
